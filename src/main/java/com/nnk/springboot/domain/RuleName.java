@@ -4,9 +4,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -18,6 +16,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rulename")
 public class RuleName {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private int Id;
+
     @Column(name = "name", nullable = false)
     private String name;
 

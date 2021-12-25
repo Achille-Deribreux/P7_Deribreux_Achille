@@ -20,6 +20,12 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "trade")
 public class Trade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TradeId")
+    private int id;
+
     @Column(name = "account", nullable = false)
     private String account;
 
