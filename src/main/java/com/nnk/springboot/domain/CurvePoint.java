@@ -23,7 +23,7 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int Id;
+    private Integer Id;
 
     @Column(name = "curveId", nullable = false)
     private Integer curveId;
@@ -40,4 +40,10 @@ public class CurvePoint {
     @CreationTimestamp
     @Column(name = "creationDate", nullable = false, updatable = false)
     private Timestamp creationDate;
+
+    public CurvePoint(int curveId, double term, double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }
