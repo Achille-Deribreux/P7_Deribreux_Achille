@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
-@NoArgsConstructor
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {

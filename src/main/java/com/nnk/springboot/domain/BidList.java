@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
 @NoArgsConstructor
