@@ -5,9 +5,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 
@@ -17,10 +15,15 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
-@NoArgsConstructor
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer Id;
+
     @Column(name = "curveId", nullable = false)
     private Integer curveId;
 
@@ -36,4 +39,10 @@ public class CurvePoint {
     @CreationTimestamp
     @Column(name = "creationDate", nullable = false, updatable = false)
     private Timestamp creationDate;
+
+    public CurvePoint(int curveId, double term, double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }

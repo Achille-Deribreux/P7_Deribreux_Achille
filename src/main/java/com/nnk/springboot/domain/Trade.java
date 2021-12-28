@@ -13,13 +13,18 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
 @NoArgsConstructor
 @Entity
 @Table(name = "trade")
 public class Trade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TradeId")
+    private int TradeId;
+
     @Column(name = "account", nullable = false)
     private String account;
 
@@ -80,4 +85,10 @@ public class Trade {
 
     @Column(name = "side")
     private String side;
+
+    public Trade(String account, String type, Double buyQuantity) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+    }
 }

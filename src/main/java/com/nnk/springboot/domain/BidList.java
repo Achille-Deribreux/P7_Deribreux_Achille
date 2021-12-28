@@ -5,21 +5,25 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "bidlist")
 public class BidList {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BidListId")
+    private Integer BidListId;
+
     @NonNull
     @Column(name = "account", nullable = false)
     private String account;
@@ -81,4 +85,10 @@ public class BidList {
 
     @Column(name = "side")
     private String side;
+
+    public BidList(String account_test, String type_test, double v) {
+        this.account = account_test;
+        this.type = type_test;
+        this.bidQuantity = v;
+    }
 }
