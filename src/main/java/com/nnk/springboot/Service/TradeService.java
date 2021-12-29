@@ -28,6 +28,10 @@ public class TradeService {
         return tradeRepository.findById(id).orElse(null);
     }
 
+    public Trade save(Trade trade){
+        return tradeRepository.save(trade);
+    }
+
     public void delete(Integer id){
         Trade tradeToDelete = findById(id);
         tradeRepository.delete(tradeToDelete);

@@ -45,6 +45,16 @@ public class TradeServiceTest {
     }
 
     @Test
+    void saveTest() {
+        //Given
+        Trade trade = new Trade("Account", "Type", 10.0);
+        //When
+        tradeService.save(trade);
+        //Then
+        verify(tradeRepository, Mockito.times(1)).save(trade);
+    }
+
+    @Test
     void deleteTest() {
         //Given
         Trade trade = new Trade("Account", "Type", 10.0);

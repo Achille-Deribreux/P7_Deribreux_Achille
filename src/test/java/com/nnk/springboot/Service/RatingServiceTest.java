@@ -43,6 +43,16 @@ public class RatingServiceTest {
     }
 
     @Test
+    void saveTest() {
+        //Given
+        Rating rating = new Rating("moodysRating","SandPRating","fitchRating",10);
+        //When
+        ratingService.save(rating);
+        //Then
+        verify(ratingRepository, Mockito.times(1)).save(rating);
+    }
+
+    @Test
     void deleteTest() {
         //Given
         Rating rating = new Rating("moodysRating","SandPRating","fitchRating",10);

@@ -27,6 +27,10 @@ public class RatingService {
         return ratingRepository.findById(id).orElse(null);
     }
 
+    public Rating save(Rating rating){
+        return ratingRepository.save(rating);
+    }
+
     public void delete(Integer id){
         Rating ratingToDelete = findById(id);
         ratingRepository.delete(ratingToDelete);

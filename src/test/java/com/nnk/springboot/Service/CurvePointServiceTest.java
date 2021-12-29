@@ -44,6 +44,16 @@ public class CurvePointServiceTest {
     }
 
     @Test
+    void saveTest() {
+        //Given
+        CurvePoint curvePoint = new CurvePoint(10,10.0,100.0);
+        //When
+        curveService.save(curvePoint);
+        //Then
+        verify(curvePointRepository, Mockito.times(1)).save(curvePoint);
+    }
+
+    @Test
     void deleteTest() {
         //Given
         CurvePoint curvePoint = new CurvePoint(10,10.0,100.0);

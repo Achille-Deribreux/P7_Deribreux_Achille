@@ -42,6 +42,16 @@ public class BidListServiceTest {
     }
 
     @Test
+    void saveTest() {
+        //Given
+        BidList bidList = new BidList("account","type",10.0);
+        //When
+        bidListService.save(bidList);
+        //Then
+        verify(bidListRepository, Mockito.times(1)).save(bidList);
+    }
+
+    @Test
     void deleteTest() {
         //Given
         BidList bidList = new BidList("account","type",10.0);

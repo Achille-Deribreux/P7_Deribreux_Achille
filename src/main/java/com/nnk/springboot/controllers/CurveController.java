@@ -21,8 +21,8 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
-        return "curvePoint/list";
+       model.addAttribute("curve",curveService.findAll());
+       return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
@@ -32,13 +32,18 @@ public class CurveController {
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+        // TODO: check data valid and save to db, after saving return Curve list // OK?
+        if(result.hasErrors()){
+            curveService.save(curvePoint);
+            return "redirect:/curvePoint/list";
+        }
         return "curvePoint/add";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+        // TODO: get CurvePoint by Id and to model then show to the form // OK ?
+        model.addAttribute("curve",curveService.findById(id));
         return "curvePoint/update";
     }
 
@@ -52,6 +57,7 @@ public class CurveController {
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
+        curveService.delete(id);
         return "redirect:/curvePoint/list";
     }
 }
