@@ -1,6 +1,6 @@
 package com.nnk.springboot.Exceptions;
 
-import com.nnk.springboot.Exceptions.CustomExceptions.BidListNotFoundException;
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.CustomErrorResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +16,9 @@ public class ExceptionsHandler {
 
     private static final Logger logger = LogManager.getLogger(ExceptionsHandler.class);
 
-    @ExceptionHandler(BidListNotFoundException.class)
-    public ResponseEntity<Object> handleBidListNotFoundException(BidListNotFoundException e){
-        logger.error("User not found");
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<Object> handleBidListNotFoundException(ObjectNotFoundException e){
+        logger.error(e.getMessage());
         CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.NOT_FOUND, ZonedDateTime.now());
         return new ResponseEntity<>(res, HttpStatus.CONFLICT);
     }
