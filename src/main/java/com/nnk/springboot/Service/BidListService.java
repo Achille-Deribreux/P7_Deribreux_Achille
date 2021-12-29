@@ -25,6 +25,10 @@ public class BidListService {
         return bidListRepository.findById(id).orElse(null);
     }
 
+    public BidList save(BidList bidList){
+        return bidListRepository.save(bidList);
+    }
+
     public void delete(Integer id){
         BidList bidListToDelete = findById(id);
         bidListRepository.delete(bidListToDelete);

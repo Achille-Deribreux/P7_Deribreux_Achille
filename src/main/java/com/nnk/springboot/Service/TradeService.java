@@ -29,7 +29,6 @@ public class TradeService {
     }
 
     public Trade save(Trade trade){
-        //TODO : TEST
         return tradeRepository.save(trade);
     }
 
