@@ -21,7 +21,7 @@ public class RatingController {
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
+        model.addAttribute("rating", ratingService.findAll());
         return "rating/list";
     }
 
@@ -32,13 +32,18 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
+        // TODO: check data valid and save to db, after saving return Rating list //OK?
+        if(result.hasErrors()){
+            ratingService.save(rating);
+            return "redirect:/rating/list";
+        }
         return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+        // TODO: get Rating by Id and to model then show to the form //OK?
+        model.addAttribute("rating",ratingService.findById(id));
         return "rating/update";
     }
 
@@ -51,7 +56,7 @@ public class RatingController {
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+        ratingService.delete(id);
         return "redirect:/rating/list";
     }
 }

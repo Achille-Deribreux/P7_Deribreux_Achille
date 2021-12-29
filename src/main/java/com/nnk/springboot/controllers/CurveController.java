@@ -35,6 +35,7 @@ public class CurveController {
         // TODO: check data valid and save to db, after saving return Curve list // OK?
         if(result.hasErrors()){
             curveService.save(curvePoint);
+            return "redirect:/curvePoint/list";
         }
         return "curvePoint/add";
     }
