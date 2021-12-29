@@ -28,6 +28,10 @@ public class RuleNameService {
         return ruleNameRepository.findById(id).orElse(null);
     }
 
+    public RuleName save (RuleName ruleName){
+        return ruleNameRepository.save(ruleName);
+    }
+
     public void delete(Integer id){
         RuleName rulenameToDelete = findById(id);
         ruleNameRepository.delete(rulenameToDelete);

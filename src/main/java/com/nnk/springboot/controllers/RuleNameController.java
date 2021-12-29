@@ -21,7 +21,7 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
+        model.addAttribute("ruleName",ruleNameService.findAll());
         return "ruleName/list";
     }
 
@@ -32,13 +32,19 @@ public class RuleNameController {
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
-        return "ruleName/add";
+        // TODO: check data valid and save to db, after saving return RuleName list // OK?
+        if(result.hasErrors()){
+            ruleNameService.save(ruleName);
+            return "redirect:/ruleName/list";
+        }else{
+            return "ruleName/add";
+        }
     }
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+        // TODO: get RuleName by Id and to model then show to the form //OK?
+        model.addAttribute("ruleName",ruleNameService.findById(id));
         return "ruleName/update";
     }
 
@@ -51,7 +57,7 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+        ruleNameService.delete(id);
         return "redirect:/ruleName/list";
     }
 }

@@ -46,6 +46,16 @@ public class RuleNameServiceTest {
     }
 
     @Test
+    void saveTest() {
+        //Given
+        RuleName ruleName = new RuleName("name","description", "json", "template", "sql", "sqlpart");
+        //When
+        ruleNameService.save(ruleName);
+        //Then
+        verify(ruleNameRepository, Mockito.times(1)).save(ruleName);
+    }
+
+    @Test
     void deleteTest() {
         //Given
         RuleName ruleName = new RuleName("name","description", "json", "template", "sql", "sqlpart");
