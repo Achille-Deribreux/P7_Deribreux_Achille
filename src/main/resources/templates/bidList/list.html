@@ -37,7 +37,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
+			<tr th:each="bid : ${bidList}">
+				<td th:text="${bid.id}"></td>
+				<td th:text="${bid.account}"></td>
+				<td th:text="${bid.type}"></td>
+				<td th:text="${bid.bidQuantity}"></td>
+				<td>
+					<div class="btn-group">
+						<form th:action="@{/poseidon/bidList/{id}(id=${bid.id})}" th:method="get">
+							<button type="submit" value="Get" class="btn btn-primary mr-2">Update</button>
+						</form>
+						<form th:action="@{/poseidon/bidList/{id}(id=${bid.id})}" th:method="delete">
+							<button type="submit" value="Delete" class="btn btn-danger mr-2">Delete</button>
+						</form>
+					</div>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</div>
