@@ -33,7 +33,7 @@ public class TradeController {
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Trade list //OK?
-        if(result.hasErrors()){
+        if(!result.hasErrors()){
             tradeService.save(trade);
             return "redirect:/trade/list";
         } else{
@@ -51,8 +51,13 @@ public class TradeController {
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-        return "redirect:/trade/list";
+        if(!result.hasErrors()){
+            trade.setTradeId(id);
+            tradeService.save(trade);
+            return "redirect:/trade/list";
+        } else{
+            return "/trade/update/{id}";
+        }
     }
 
     @GetMapping("/trade/delete/{id}")
