@@ -22,7 +22,7 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bidlistid")
-    private Integer BidListId;
+    private Integer id;
 
     @NonNull
     @Column(name = "account", nullable = false)
@@ -46,7 +46,7 @@ public class BidList {
     @Column(name = "benchmark")
     private String benchmark;
 
-    @Column(name = "bidListdate")
+    @Column(name = "bidlistdate")
     private Timestamp bidListDate;
 
     @Column(name = "commentary")

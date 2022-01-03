@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
@@ -13,10 +13,38 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
+		 <form action="#" th:action="@{/bidList/update/{id}(id=${bidlist.id})}" th:object="${bidlist}" th:method="post" class="form-horizontal" style="width: 100%">
+			 <div class="form-group">
+				 <label class="control-label" for="account">Account</label>
+				 <input id="account" class="form-control" type="text" th:value="${bidlist.account}"
+						name="account"/>
+				 <p class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></p>
+			 </div>
+			 <div class="form-group">
+				 <label class="control-label" for="type">type</label>
+				 <input id="type" class="form-control" type="text" th:value="${bidlist.type}"
+						name="type"/>
+				 <p class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+			 </div>
+			 <div class="form-group">
+				 <label class="control-label" for="bidQuantity">bidQuantity</label>
+				 <input id="bidQuantity" class="form-control" type="number" step=".01"
+						th:value="${bidlist.bidQuantity}"
+						name="bidQuantity"/>
+				 <p class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></p>
+			 </div>
+			 <div class="form-group">
+				 <div class="row justify-content-center">
+					 <div class="col-sm-6 col-sm-offset-3">
+						 <a class="btn btn-danger btn" th:href="@{/bidlist/list}">
+							 Cancel
+						 </a>
+						 <button type="submit" class="form-control btn btn-primary">
+							 Update BidList
+						 </button>
+					 </div>
+				 </div>
+			 </div>
 		</form>
 	</div>
 

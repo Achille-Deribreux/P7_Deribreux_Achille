@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
@@ -44,10 +44,10 @@
 				<td th:text="${bid.bidQuantity}"></td>
 				<td>
 					<div class="btn-group">
-						<form th:action="@{/bidList/{id}(id=${bid.id})}" th:method="get">
+						<form th:action="@{/bidList/update/{id}(id=${bid.id})}" th:method="get">
 							<button type="submit" value="Get" class="btn btn-primary mr-2">Update</button>
 						</form>
-						<form th:action="@{/bidList/{id}(id=${bid.id})}" th:method="delete">
+						<form th:action="@{/bidList/delete/{id}(id=${bid.id})}" th:method="get">
 							<button type="submit" value="Delete" class="btn btn-danger mr-2">Delete</button>
 						</form>
 					</div>

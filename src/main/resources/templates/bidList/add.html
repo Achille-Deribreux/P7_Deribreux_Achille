@@ -18,6 +18,37 @@
 			<!--
 			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
 			 -->
+
+			<!--
+			TODO: add hasErrors
+			 -->
+			<div class="form-group">
+				<label class="control-label" for="account">Account</label>
+				<input id="account" class="form-control" type="text" name="account"/>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="type">Type</label>
+				<input id="type" class="form-control" type="text" name="type"/>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="bidQuantity">Bid Quantity</label>
+				<input id="bidQuantity" class="form-control" type="number" step=".01" name="bidQuantity"/>
+			</div>
+
+			<div class="form-group">
+				<div class="row justify-content-around">
+					<div class="col-sm-6 col<-sm-offset-3">
+						<a class="btn btn-danger btn" th:href="@{/bidList/list}">
+							Cancel
+						</a>
+						<button type="submit" class="form-control btn btn-primary">
+							Add BidList
+						</button>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 
