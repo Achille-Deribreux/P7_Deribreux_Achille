@@ -15,10 +15,40 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
-			 -->
+			<form th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
+				<div class="form-group">
+					<label class="control-label" for="curveId">curveId</label>
+					<input id="curveId" class="form-control" type="number" step=".01" name="curveId" required/>
+					<p class="text-danger" th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}"></p>
+				</div>
 
+				<div class="form-group">
+					<label class="control-label" for="term">term</label>
+					<input id="term" class="form-control" type="number" step=".01" name="term" required/>
+					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label" for="value">value</label>
+					<input id="value" class="form-control" type="number" step=".01" name="value" required/>
+					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+				</div>
+
+				<div class="form-group">
+					<div class="row justify-content-around">
+						<div class="col-sm-6 col-sm-offset-3 text-right">
+							<a class="w-50 btn btn-danger btn" th:href="@{/curvePoint/list}">
+								Cancel
+							</a>
+						</div>
+						<div class="col-sm-6 col-sm-offset-3 text-left">
+							<button type="submit" class="w-50 form-control btn btn-primary">
+								Add CurvePoint
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</form>
 	</div>
 

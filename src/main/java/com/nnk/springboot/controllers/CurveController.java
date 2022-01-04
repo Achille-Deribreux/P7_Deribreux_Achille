@@ -21,7 +21,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-       model.addAttribute("curve",curveService.findAll());
+       model.addAttribute("curveList",curveService.findAll());
        return "curvePoint/list";
     }
 
@@ -32,31 +32,35 @@ public class CurveController {
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list // OK?
-        if(result.hasErrors()){
+        if(!result.hasErrors()){
             curveService.save(curvePoint);
             return "redirect:/curvePoint/list";
         }
-        return "curvePoint/add";
+        else {
+            return "curvePoint/add";
+        }
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form // OK ?
-        model.addAttribute("curve",curveService.findById(id));
+        model.addAttribute("curvePoint",curveService.findById(id));
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-        return "redirect:/curvePoint/list";
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, Model model) {
+        if(!result.hasErrors()){
+            curvePoint.setId(id);
+            curveService.save(curvePoint);
+            return "redirect:/curvePoint/list";
+        }
+        else {
+            return "/curvePoint/update/{id}";
+        }
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
         curveService.delete(id);
         return "redirect:/curvePoint/list";
     }

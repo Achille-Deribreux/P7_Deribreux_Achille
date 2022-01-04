@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int Id;
 
     @Column(name = "name", nullable = false)
@@ -32,10 +32,10 @@ public class RuleName {
     @Column(name = "template", nullable = false)
     private String template;
 
-    @Column(name = "sqlStr", nullable = false)
+    @Column(name = "sqlstr", nullable = false)
     private String sqlStr;
 
-    @Column(name = "sqlPart", nullable = false)
+    @Column(name = "sqlpart", nullable = false)
     private String sqlPart;
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {

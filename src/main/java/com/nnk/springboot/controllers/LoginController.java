@@ -8,6 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/login")
+public class LoginController {
+
+    @GetMapping
+    public String getLoginForm() {
+        return "/login";
+    }
+
+}
+/*
+@Controller
 @RequestMapping("app")
 public class LoginController {
 
@@ -37,4 +48,4 @@ public class LoginController {
         mav.setViewName("403");
         return mav;
     }
-}
+}*/

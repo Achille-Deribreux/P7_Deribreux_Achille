@@ -22,8 +22,8 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TradeId")
-    private int TradeId;
+    @Column(name = "tradeid")
+    private int tradeId;
 
     @Column(name = "account", nullable = false)
     private String account;
@@ -31,22 +31,22 @@ public class Trade {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "buyQuantity", nullable = false)
+    @Column(name = "buyquantity", nullable = false)
     private Double buyQuantity;
 
-    @Column(name = "sellQuantity")
+    @Column(name = "sellquantity")
     private Double sellQuantity;
 
-    @Column(name = "buyPrice")
+    @Column(name = "buyprice")
     private Double buyPrice;
 
-    @Column(name = "sellPrice")
+    @Column(name = "sellprice")
     private Double sellPrice;
 
     @Column(name = "benchmark")
     private String benchmark;
 
-    @Column(name = "tradeDate")
+    @Column(name = "tradedate")
     private Timestamp tradeDate;
 
     @Column(name = "security")
@@ -61,26 +61,26 @@ public class Trade {
     @Column(name = "book")
     private String book;
 
-    @Column(name = "creationName")
+    @Column(name = "creationname")
     private String creationName;
 
     @CreationTimestamp
-    @Column(name = "creationDate", nullable = false, updatable = false)
+    @Column(name = "creationdate", nullable = false, updatable = false)
     private Timestamp creationDate;
 
-    @Column(name = "revisionName")
+    @Column(name = "revisionname")
     private String revisionName;
 
-    @Column(name = "revisionDate")
+    @Column(name = "revisiondate")
     private Timestamp revisionDate;
 
-    @Column(name = "dealName")
+    @Column(name = "dealname")
     private String dealName;
 
-    @Column(name = "dealType")
+    @Column(name = "dealtype")
     private String dealType;
 
-    @Column(name = "sourceListId")
+    @Column(name = "sourcelistid")
     private String sourceListId;
 
     @Column(name = "side")

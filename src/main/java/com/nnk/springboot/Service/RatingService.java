@@ -1,5 +1,6 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,7 @@ public class RatingService {
     }
 
     public Rating findById(Integer id){
-        //TODO CHANGE NULL BY CUSTOM EXCEPTION
-        return ratingRepository.findById(id).orElse(null);
+        return ratingRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Rating", id));
     }
 
     public Rating save(Rating rating){

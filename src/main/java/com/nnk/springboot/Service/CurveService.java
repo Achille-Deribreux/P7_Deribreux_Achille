@@ -1,5 +1,6 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,7 @@ public class CurveService {
     }
 
     public CurvePoint findById(Integer id){
-        //TODO : Make custom exception
-        return curvePointRepository.findById(id).orElse(null);
+        return curvePointRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("CurvePoint", id));
     }
 
     public CurvePoint save(CurvePoint curvePoint){

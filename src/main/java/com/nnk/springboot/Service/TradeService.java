@@ -1,5 +1,6 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ public class TradeService {
     }
 
     public Trade findById(Integer id){
-        //TODO: Change null by custom exception
-        return tradeRepository.findById(id).orElse(null);
+        return tradeRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Trade", id));
     }
 
     public Trade save(Trade trade){

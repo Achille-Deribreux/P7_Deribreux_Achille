@@ -21,7 +21,7 @@ public class TradeController {
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
-        model.addAttribute("trade", tradeService.findAll());
+        model.addAttribute("tradeList", tradeService.findAll());
         return "trade/list";
     }
 
@@ -32,8 +32,7 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list //OK?
-        if(result.hasErrors()){
+        if(!result.hasErrors()){
             tradeService.save(trade);
             return "redirect:/trade/list";
         } else{
@@ -43,16 +42,19 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form // OK ?
         model.addAttribute("trade",tradeService.findById(id));
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-        return "redirect:/trade/list";
+    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
+        if(!result.hasErrors()){
+            trade.setTradeId(id);
+            tradeService.save(trade);
+            return "redirect:/trade/list";
+        } else{
+            return "/trade/update/{id}";
+        }
     }
 
     @GetMapping("/trade/delete/{id}")

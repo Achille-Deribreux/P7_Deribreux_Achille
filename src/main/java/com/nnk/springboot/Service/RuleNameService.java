@@ -1,5 +1,6 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ public class RuleNameService {
     }
 
     public RuleName findById(Integer id){
-        //TODO : change null by custom exception
-        return ruleNameRepository.findById(id).orElse(null);
+        return ruleNameRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("RuleName", id));
     }
 
     public RuleName save (RuleName ruleName){

@@ -1,5 +1,6 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,7 @@ public class BidListService {
     }
 
     public BidList findById(Integer id){
-        //TODO CHANGE NULL BY CUSTOM EXCEPTION
-        return bidListRepository.findById(id).orElse(null);
+        return bidListRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("BidList", id));
     }
 
     public BidList save(BidList bidList){

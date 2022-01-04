@@ -18,19 +18,19 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int Id;
 
-    @Column(name = "moodysRating", nullable = false)
+    @Column(name = "moodysrating", nullable = false)
     private String moodysRating;
 
-    @Column(name = "SandPRating", nullable = false)
+    @Column(name = "sandprating", nullable = false)
     private String sandPRating;
 
-    @Column(name = "fitchRating", nullable = false)
+    @Column(name = "fitchrating", nullable = false)
     private String fitchRating;
 
-    @Column(name = "orderNumber", nullable = false)
+    @Column(name = "ordernumber", nullable = false)
     private Integer orderNumber;
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {

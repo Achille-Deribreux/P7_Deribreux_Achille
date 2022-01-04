@@ -13,21 +13,19 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Accessors(chain = true)
-@SuperBuilder
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Integer Id;
 
-    @Column(name = "curveId", nullable = false)
+    @Column(name = "curveid", nullable = false)
     private Integer curveId;
 
-    @Column(name = "asOfDate")
+    @Column(name = "asofdate")
     private Timestamp asOfDate;
 
     @Column(name = "term", nullable = false)
@@ -37,7 +35,7 @@ public class CurvePoint {
     private Double value;
 
     @CreationTimestamp
-    @Column(name = "creationDate", nullable = false, updatable = false)
+    @Column(name = "creationdate", nullable = false, updatable = false)
     private Timestamp creationDate;
 
     public CurvePoint(int curveId, double term, double value) {
