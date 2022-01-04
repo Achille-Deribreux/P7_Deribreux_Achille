@@ -21,7 +21,7 @@ public class TradeController {
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
-        model.addAttribute("trade", tradeService.findAll());
+        model.addAttribute("tradeList", tradeService.findAll());
         return "trade/list";
     }
 
@@ -51,7 +51,7 @@ public class TradeController {
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
         if(!result.hasErrors()){
-            trade.setId(id);
+            trade.setTradeId(id);
             tradeService.save(trade);
             return "redirect:/trade/list";
         } else{

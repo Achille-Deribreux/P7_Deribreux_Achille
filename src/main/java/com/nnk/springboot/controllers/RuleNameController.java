@@ -32,7 +32,6 @@ public class RuleNameController {
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list // OK?
         if(!result.hasErrors()){
             ruleNameService.save(ruleName);
             return "redirect:/ruleName/list";
@@ -43,7 +42,6 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form //OK?
         model.addAttribute("ruleName",ruleNameService.findById(id));
         return "ruleName/update";
     }

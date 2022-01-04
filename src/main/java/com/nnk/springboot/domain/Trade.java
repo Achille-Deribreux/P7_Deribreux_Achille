@@ -23,7 +23,7 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tradeid")
-    private int id;
+    private int tradeId;
 
     @Column(name = "account", nullable = false)
     private String account;
@@ -74,7 +74,7 @@ public class Trade {
     @Column(name = "revisiondate")
     private Timestamp revisionDate;
 
-    @Column(name = "dealdame")
+    @Column(name = "dealname")
     private String dealName;
 
     @Column(name = "dealtype")
