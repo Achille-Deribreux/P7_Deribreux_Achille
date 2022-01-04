@@ -32,7 +32,6 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list //OK?
         if(!result.hasErrors()){
             tradeService.save(trade);
             return "redirect:/trade/list";
@@ -43,7 +42,6 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form // OK ?
         model.addAttribute("trade",tradeService.findById(id));
         return "trade/update";
     }
