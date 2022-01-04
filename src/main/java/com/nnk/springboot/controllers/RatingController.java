@@ -32,7 +32,6 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list //OK?
         if(!result.hasErrors()){
             ratingService.save(rating);
             return "redirect:/rating/list";
@@ -44,7 +43,6 @@ public class RatingController {
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form //OK?
         model.addAttribute("rating",ratingService.findById(id));
         return "rating/update";
     }
