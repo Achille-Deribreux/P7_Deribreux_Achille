@@ -30,7 +30,7 @@
 
 				<div class="form-group">
 					<label class="control-label" for="value">value</label>
-					<input id="value" class="form-control" type="number" step=".01" name="value"/>
+					<input id="value" class="form-control" type="number" step=".01" name="value" required/>
 					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
 				</div>
 
