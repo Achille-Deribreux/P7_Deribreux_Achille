@@ -17,22 +17,22 @@
 		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label class="control-label" for="moodysRating">Moodys rating</label>
-				<input id="moodysRating" class="form-control" type="text" name="moodysRating"/>
+				<input id="moodysRating" class="form-control" type="text" name="moodysRating" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="sandPRating">SandP rating</label>
-				<input id="sandPRating" class="form-control" type="text" name="sandPRating"/>
+				<input id="sandPRating" class="form-control" type="text" name="sandPRating" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="fitchRating">Fitch rating</label>
-				<input id="fitchRating" class="form-control" type="text" name="fitchRating"/>
+				<input id="fitchRating" class="form-control" type="text" name="fitchRating" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="orderNumber">Order number</label>
-				<input id="orderNumber" class="form-control" type="number" name="orderNumber"/>
+				<input id="orderNumber" class="form-control" type="number" name="orderNumber" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></p>
 			</div>
 			<div class="form-group">

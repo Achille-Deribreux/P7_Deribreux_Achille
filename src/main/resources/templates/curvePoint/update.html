@@ -16,19 +16,19 @@
 		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label class="control-label" for="curveId">curveId</label>
-				<input id="curveId" class="form-control" type="number" step=".01" name="curveId" th:value="${curvePoint.curveId}"/>
+				<input id="curveId" class="form-control" type="number" step=".01" name="curveId" th:value="${curvePoint.curveId}" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}"></p>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label" for="term">term</label>
-				<input id="term" class="form-control" type="number" step=".01" name="term" th:value="${curvePoint.term}"/>
+				<input id="term" class="form-control" type="number" step=".01" name="term" th:value="${curvePoint.term}" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label" for="value">value</label>
-				<input id="value" class="form-control" type="number" step=".01" name="value" th:value="${curvePoint.value}"/>
+				<input id="value" class="form-control" type="number" step=".01" name="value" th:value="${curvePoint.value}" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
 			</div>
 

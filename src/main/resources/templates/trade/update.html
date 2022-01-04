@@ -16,20 +16,17 @@
 		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label class="control-label" for="account">Account</label>
-				<input id="account" class="form-control" type="text" th:value="${trade.account}" name="account"/>
+				<input id="account" class="form-control" type="text" th:value="${trade.account}" name="account" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="type">Type</label>
-				<input id="type" class="form-control" type="text" th:value="${trade.type}"
-					   name="type"/>
+				<input id="type" class="form-control" type="text" th:value="${trade.type}" name="type" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="buyQuantity">Buy quantity</label>
-				<input id="buyQuantity" class="form-control" type="number" step=".01"
-					   th:value="${trade.buyQuantity}"
-					   name="buyQuantity"/>
+				<input id="buyQuantity" class="form-control" type="number" step=".01" th:value="${trade.buyQuantity}" name="buyQuantity" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></p>
 			</div>
 			<div class="form-group">

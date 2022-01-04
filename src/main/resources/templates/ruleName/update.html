@@ -17,39 +17,32 @@
 		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label class="control-label" for="name">Name</label>
-				<input id="name" class="form-control" type="text" th:value="${ruleName.name}"
-					   name="name"/>
+				<input id="name" class="form-control" type="text" th:value="${ruleName.name}" name="name" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="description">Description</label>
-				<input id="description" class="form-control" type="text"
-					   th:value="${ruleName.description}"
-					   name="description"/>
+				<input id="description" class="form-control" type="text" th:value="${ruleName.description}" name="description" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="json">Json</label>
-				<input id="json" class="form-control" type="text" th:value="${ruleName.json}"
-					   name="json"/>
+				<input id="json" class="form-control" type="text" th:value="${ruleName.json}" name="json" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('json')}" th:errors="*{json}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="template">Template</label>
-				<input id="template" class="form-control" type="text" th:value="${ruleName.template}"
-					   name="template"/>
+				<input id="template" class="form-control" type="text" th:value="${ruleName.template}" name="template" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('template')}" th:errors="*{template}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="sqlStr">Sql</label>
-				<input id="sqlStr" class="form-control" type="text" th:value="${ruleName.sqlStr}"
-					   name="sqlStr"/>
+				<input id="sqlStr" class="form-control" type="text" th:value="${ruleName.sqlStr}" name="sqlStr" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('sqlStr')}" th:errors="*{sqlStr}"></p>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="sqlPart">SqlPart</label>
-				<input id="sqlPart" class="form-control" type="text" th:value="${ruleName.sqlPart}"
-					   name="sqlPart"/>
+				<input id="sqlPart" class="form-control" type="text" th:value="${ruleName.sqlPart}" name="sqlPart" required/>
 				<p class="text-danger" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></p>
 			</div>
 			<div class="form-group">
