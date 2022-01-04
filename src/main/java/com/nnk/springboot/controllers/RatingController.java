@@ -21,7 +21,7 @@ public class RatingController {
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        model.addAttribute("rating", ratingService.findAll());
+        model.addAttribute("ratingList", ratingService.findAll());
         return "rating/list";
     }
 
