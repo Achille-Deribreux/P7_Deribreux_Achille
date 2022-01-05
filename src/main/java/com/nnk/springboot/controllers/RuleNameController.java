@@ -30,6 +30,7 @@ public class RuleNameController {
         return "ruleName/add";
     }
 
+    //TODO : validate test
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         if(!result.hasErrors()){
@@ -46,6 +47,7 @@ public class RuleNameController {
         return "ruleName/update";
     }
 
+    //TODO : validate test
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model) {
         if(!result.hasErrors()){
