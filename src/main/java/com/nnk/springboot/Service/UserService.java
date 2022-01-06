@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    //TODO : test class
 
     @Autowired
     UserRepository userRepository;
