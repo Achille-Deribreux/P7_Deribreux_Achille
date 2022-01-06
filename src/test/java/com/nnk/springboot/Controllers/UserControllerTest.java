@@ -1,12 +1,9 @@
 package com.nnk.springboot.Controllers;
 
 import com.nnk.springboot.Service.AuthenticationService;
-import com.nnk.springboot.controllers.LoginController;
 import com.nnk.springboot.controllers.UserController;
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,8 +35,6 @@ public class UserControllerTest {
 
     @MockBean
     UserRepository userRepository;
-
-    User user = new User(1,"username","$2a$10$HsDretUSp5zcazogb8UEte383OX5K.6Anz1rte1x0426ZnYLR/MUW","full name","ADMIN");
 
     @Test
     void homeTest() throws Exception {

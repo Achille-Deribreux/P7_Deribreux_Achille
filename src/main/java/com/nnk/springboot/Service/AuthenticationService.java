@@ -21,6 +21,10 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     UserService userService;
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
