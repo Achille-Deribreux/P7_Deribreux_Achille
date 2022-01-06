@@ -36,7 +36,10 @@ public class RatingServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        Rating rating = new Rating("moodysRating","SandPRating","fitchRating",10);
         //When
+        Mockito.when(ratingRepository.findById(1)).thenReturn(Optional.of(rating));
         ratingService.findById(1);
         //Then
         verify(ratingRepository, Mockito.times(1)).findById(1);

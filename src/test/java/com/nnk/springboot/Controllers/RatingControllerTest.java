@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -87,5 +88,14 @@ public class RatingControllerTest {
         Mockito.when(ratingService.save(rating)).thenReturn(rating);
         //Then
         mockMvc.perform(post("/rating/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(rating)).with(csrf())).andExpect(redirectedUrl("/rating/list"));
+    }
+
+    @Test
+    void deleteRatingTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(ratingService).delete(1);
+        //THEN
+        mockMvc.perform(get("/rating/delete/1")).andExpect(redirectedUrl("/rating/list"));
+        verify(ratingService,Mockito.times(1)).delete(1);
     }
 }

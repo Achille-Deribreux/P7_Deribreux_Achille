@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -81,12 +82,21 @@ public class RuleNameControllerTest {
     }
 
     @Test
-    void updateBidTest() throws Exception {
+    void updateRuleNameTest() throws Exception {
         //Given
         RuleName ruleName = new RuleName("name","desc","json", "temp", "sql", "sqlpart");
         //When
         Mockito.when(ruleNameService.save(ruleName)).thenReturn(ruleName);
         //Then
         mockMvc.perform(post("/ruleName/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(ruleName)).with(csrf())).andExpect(redirectedUrl("/ruleName/list"));
+    }
+
+    @Test
+    void deleteRuleNameTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(ruleNameService).delete(1);
+        //THEN
+        mockMvc.perform(get("/ruleName/delete/1")).andExpect(redirectedUrl("/ruleName/list"));
+        verify(ruleNameService,Mockito.times(1)).delete(1);
     }
 }

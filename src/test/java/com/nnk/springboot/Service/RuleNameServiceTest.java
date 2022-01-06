@@ -39,7 +39,10 @@ public class RuleNameServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        RuleName ruleName = new RuleName("name","description", "json", "template", "sql", "sqlpart");
         //When
+        Mockito.when(ruleNameRepository.findById(1)).thenReturn(Optional.of(ruleName));
         ruleNameService.findById(1);
         //Then
         verify(ruleNameRepository, Mockito.times(1)).findById(1);

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -104,5 +105,20 @@ public class UserControllerTest {
                 .param("fullname","full name")
                 .param("role","ADMIN")
                 .with(csrf())).andExpect(redirectedUrl("/user/list"));
+    }
+
+    @Test
+    void deleteUserTest() throws Exception {
+        //Given
+        User user =  new User(1,"username","$2a$10$HsDretUSp5zcazogb8UEte383OX5K.6Anz1rte1x0426ZnYLR/MUW","full name","ADMIN");
+        List<User> findAll = new ArrayList<>(Arrays.asList(new User(1,"username","$2a$10$HsDretUSp5zcazogb8UEte383OX5K.6Anz1rte1x0426ZnYLR/MUW","full name","ADMIN"),new User(2,"username","$2a$10$HsDretUSp5zcazogb8UEte383OX5K.6Anz1rte1x0426ZnYLR/MUW","full name","ADMIN")));
+        //When
+        Mockito.when(userRepository.findById(1)).thenReturn(java.util.Optional.of(user));
+        Mockito.when(userRepository.findAll()).thenReturn(findAll);
+        Mockito.doNothing().when(userRepository).delete(user);
+        //Then
+        mockMvc.perform(get("/user/delete/1"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/user/list"));
     }
 }

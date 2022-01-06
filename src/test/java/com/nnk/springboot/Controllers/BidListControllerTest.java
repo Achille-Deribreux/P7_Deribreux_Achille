@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static org.mockito.Mockito.verify;
 
 @WithMockUser(username = "user1", password = "pwd", roles = "ADMIN")
 @WebMvcTest(BidListController.class)
@@ -91,5 +92,14 @@ public class BidListControllerTest {
         Mockito.when(bidListService.save(bidList)).thenReturn(bidList);
         //Then
         mockMvc.perform(post("/bidList/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(bidList)).with(csrf())).andExpect(redirectedUrl("/bidList/list"));
+    }
+
+    @Test
+    void deleteBidListTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(bidListService).delete(1);
+        //THEN
+        mockMvc.perform(get("/bidList/delete/1")).andExpect(redirectedUrl("/bidList/list"));
+        verify(bidListService,Mockito.times(1)).delete(1);
     }
 }

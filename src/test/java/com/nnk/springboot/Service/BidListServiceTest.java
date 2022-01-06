@@ -35,7 +35,10 @@ public class BidListServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        BidList bidList = new BidList("account","type",10.0);
         //When
+        Mockito.when(bidListRepository.findById(1)).thenReturn(java.util.Optional.of(bidList));
         bidListService.findById(1);
         //Then
         verify(bidListRepository, Mockito.times(1)).findById(1);

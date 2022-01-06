@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -83,13 +84,22 @@ public class TradeControllerTest {
     }
 
     @Test
-    void updateBidTest() throws Exception {
+    void updateTradeTest() throws Exception {
         //Given
         Trade trade = new Trade("account", "type", 100.0);
         //When
         Mockito.when(tradeService.save(trade)).thenReturn(trade);
         //Then
         mockMvc.perform(post("/trade/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(trade)).with(csrf())).andExpect(redirectedUrl("/trade/list"));
+    }
+
+    @Test
+    void deleteTradeTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(tradeService).delete(1);
+        //THEN
+        mockMvc.perform(get("/trade/delete/1")).andExpect(redirectedUrl("/trade/list"));
+        verify(tradeService,Mockito.times(1)).delete(1);
     }
 }
 

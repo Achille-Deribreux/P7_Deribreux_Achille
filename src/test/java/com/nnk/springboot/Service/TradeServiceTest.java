@@ -38,7 +38,10 @@ public class TradeServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        Trade trade = new Trade("Account", "Type", 10.0);
         //When
+        Mockito.when(tradeRepository.findById(1)).thenReturn(Optional.of(trade));
         tradeService.findById(1);
         //Then
         verify(tradeRepository, Mockito.times(1)).findById(1);

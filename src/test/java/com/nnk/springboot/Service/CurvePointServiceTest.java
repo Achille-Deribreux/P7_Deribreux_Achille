@@ -37,7 +37,10 @@ public class CurvePointServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        CurvePoint curvePoint = new CurvePoint(10,10.0,100.0);
         //When
+        Mockito.when(curvePointRepository.findById(1)).thenReturn(Optional.of(curvePoint));
         curveService.findById(1);
         //Then
         verify(curvePointRepository, Mockito.times(1)).findById(1);

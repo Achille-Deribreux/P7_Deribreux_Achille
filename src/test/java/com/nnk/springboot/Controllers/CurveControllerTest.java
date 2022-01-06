@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -81,13 +82,22 @@ public class CurveControllerTest {
     }
 
     @Test
-    void updateBidTest() throws Exception {
+    void updateCurveTest() throws Exception {
         //Given
         CurvePoint curve = new CurvePoint(1,10.0,100.0);
         //When
         Mockito.when(curveService.save(curve)).thenReturn(curve);
         //Then
         mockMvc.perform(post("/curvePoint/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(curve)).with(csrf())).andExpect(redirectedUrl("/curvePoint/list"));
+    }
+
+    @Test
+    void deleteCurvePointTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(curveService).delete(1);
+        //THEN
+        mockMvc.perform(get("/curvePoint/delete/1")).andExpect(redirectedUrl("/curvePoint/list"));
+        verify(curveService,Mockito.times(1)).delete(1);
     }
 }
 
