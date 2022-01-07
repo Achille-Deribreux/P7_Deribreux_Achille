@@ -1,8 +1,10 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Optional;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -36,10 +39,19 @@ public class RatingServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        Rating rating = new Rating("moodysRating","SandPRating","fitchRating",10);
         //When
+        Mockito.when(ratingRepository.findById(1)).thenReturn(Optional.of(rating));
         ratingService.findById(1);
         //Then
         verify(ratingRepository, Mockito.times(1)).findById(1);
+        Assertions.assertEquals(rating, ratingService.findById(1));
+    }
+
+    @Test
+    void findByIdExceptionTest() {
+        assertThrows(ObjectNotFoundException.class,()->ratingService.findById(1));
     }
 
     @Test

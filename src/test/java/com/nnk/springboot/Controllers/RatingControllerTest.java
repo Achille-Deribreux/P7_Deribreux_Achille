@@ -1,12 +1,8 @@
 package com.nnk.springboot.Controllers;
 
 import com.nnk.springboot.Service.AuthenticationService;
-import com.nnk.springboot.Service.BidListService;
 import com.nnk.springboot.Service.RatingService;
-import com.nnk.springboot.TestUtils;
-import com.nnk.springboot.controllers.BidListController;
 import com.nnk.springboot.controllers.RatingController;
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Rating;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,10 +18,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "user1", password = "pwd", roles = "ADMIN")
 @WebMvcTest(RatingController.class)
@@ -68,7 +65,7 @@ public class RatingControllerTest {
         //When
         Mockito.when(ratingService.save(rating)).thenReturn(rating);
         //Then
-        mockMvc.perform(post("/rating/validate").contentType(MediaType.APPLICATION_JSON).content(String.valueOf(rating))).andExpect(status().isOk());
+        mockMvc.perform(post("/rating/validate").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(rating)).with(csrf())).andExpect(redirectedUrl("/rating/list"));
     }
 
     @Test
@@ -90,6 +87,15 @@ public class RatingControllerTest {
         //When
         Mockito.when(ratingService.save(rating)).thenReturn(rating);
         //Then
-        mockMvc.perform(post("/rating/update/1").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(rating))).andExpect(status().isOk());
+        mockMvc.perform(post("/rating/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED).content(String.valueOf(rating)).with(csrf())).andExpect(redirectedUrl("/rating/list"));
+    }
+
+    @Test
+    void deleteRatingTest() throws Exception {
+        //WHEN
+        Mockito.doNothing().when(ratingService).delete(1);
+        //THEN
+        mockMvc.perform(get("/rating/delete/1")).andExpect(redirectedUrl("/rating/list"));
+        verify(ratingService,Mockito.times(1)).delete(1);
     }
 }

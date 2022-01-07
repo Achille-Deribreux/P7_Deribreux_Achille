@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    //TODO : test class
 
     @Autowired
     UserRepository userRepository;
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(()-> new ObjetNotFoundExceptionString("User", "username :"+username));

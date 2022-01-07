@@ -1,7 +1,9 @@
 package com.nnk.springboot.Service;
 
+import com.nnk.springboot.Exceptions.CustomExceptions.ObjectNotFoundException;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -35,10 +38,19 @@ public class BidListServiceTest {
 
     @Test
     void findByIdTest() {
+        //Given
+        BidList bidList = new BidList("account","type",10.0);
         //When
+        Mockito.when(bidListRepository.findById(1)).thenReturn(java.util.Optional.of(bidList));
         bidListService.findById(1);
         //Then
         verify(bidListRepository, Mockito.times(1)).findById(1);
+        Assertions.assertEquals(bidList, bidListService.findById(1));
+    }
+
+    @Test
+    void findByIdExceptionTest() {
+        assertThrows(ObjectNotFoundException.class,()->bidListService.findById(1));
     }
 
     @Test
