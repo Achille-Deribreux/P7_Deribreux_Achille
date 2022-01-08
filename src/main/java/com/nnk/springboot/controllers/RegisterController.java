@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.Service.AuthenticationService;
+import com.nnk.springboot.Service.UserService;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RegisterController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
     public String showRegisterForm(Model model) {
         return "/registerForm";
@@ -31,10 +35,20 @@ public class RegisterController {
     @PostMapping
     public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            return "redirect:/login";
+            if(userService.uniqueUsernameValidator(user.getUsername())) {
+                if(userService.validatePassword(user.getPassword())){
+                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                    user.setPassword(encoder.encode(user.getPassword()));
+                    userRepository.save(user);
+                    return "redirect:/login";
+                }
+                else{
+                    model.addAttribute("passwordError","Invalid password");
+                }
+            }
+            else{
+                model.addAttribute("userError","Username already known, please log in");
+            }
         }
         return "/registerForm";
     }
