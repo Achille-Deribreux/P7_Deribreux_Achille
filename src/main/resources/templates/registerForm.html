@@ -24,17 +24,9 @@
         </div>
       </div>
 
-      <!-- success message -->
-      <div th:if="${param.success}">
-        <div class="alert alert-info">You've successfully registered
-          to our awesome app!
-        </div>
-      </div>
+      <div class="alert alert-danger" th:if="${passwordError}" th:text="${passwordError}"></div>
 
-      <!-- error message -->
-      <div th:if="${param.error}">
-        <div class="alert alert-danger">User already exists !</div>
-      </div>
+      <div class="alert alert-danger" th:if="${userError}" th:text="${userError}"></div>
 
       <form th:action="@{/register}" th:method="post" th:object="${user}">
         <div class="form-group">

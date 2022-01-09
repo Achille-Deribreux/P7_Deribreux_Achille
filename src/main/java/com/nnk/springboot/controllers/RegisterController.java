@@ -40,10 +40,10 @@ public class RegisterController {
                     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                     user.setPassword(encoder.encode(user.getPassword()));
                     userRepository.save(user);
-                    return "redirect:/login";
+                    return "redirect:/login?success";
                 }
                 else{
-                    model.addAttribute("passwordError","Invalid password");
+                    model.addAttribute("passwordError","Invalid password, it must have uppercase letters, digits and special character");
                 }
             }
             else{
