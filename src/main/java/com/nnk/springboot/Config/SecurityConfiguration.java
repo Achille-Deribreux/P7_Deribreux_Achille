@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/bidList/list", true)
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .oauth2Login()
