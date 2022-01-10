@@ -11,7 +11,7 @@ public class HomeController
 	@RequestMapping("/")
 	public String home(Model model)
 	{
-		return "bidList/list";
+		return "redirect:/bidList/list";
 	}
 /*
 	@RequestMapping("/admin/home")
