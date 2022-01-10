@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -19,12 +20,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
-@WithMockUser(username = "user1", password = "pwd", roles = "ADMIN")
+//@WithMockUser(username = "user1", password = "pwd", roles ="ADMIN", authorities = {"ADMIN"})
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
     @MockBean
@@ -43,7 +45,7 @@ public class UserControllerTest {
         //When
         Mockito.when(userRepository.findAll()).thenReturn(findAll);
         //Then
-        mockMvc.perform(get("/user/list"))
+        mockMvc.perform(get("/user/list").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("users"))
                 .andExpect(MockMvcResultMatchers.model().attribute("users", findAll))
@@ -52,7 +54,7 @@ public class UserControllerTest {
 
     @Test
     void addUserTest() throws Exception {
-        mockMvc.perform(get("/user/add"))
+        mockMvc.perform(get("/user/add").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/add"));
     }
@@ -66,7 +68,7 @@ public class UserControllerTest {
         Mockito.when(userRepository.save(user)).thenReturn(user);
         Mockito.when(userRepository.findAll()).thenReturn(findAll);
         //Then
-        mockMvc.perform(post("/user/validate").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        mockMvc.perform(post("/user/validate").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username","username")
                         .param("password","user")
                         .param("fullname","full name")
@@ -79,7 +81,7 @@ public class UserControllerTest {
         User user =  new User(1,"username","$2a$10$HsDretUSp5zcazogb8UEte383OX5K.6Anz1rte1x0426ZnYLR/MUW","full name","ADMIN");
         Mockito.when(userRepository.findById(1)).thenReturn(java.util.Optional.of(user));
 
-        mockMvc.perform(get("/user/update/1"))
+        mockMvc.perform(get("/user/update/1").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
                 .andExpect(MockMvcResultMatchers.model().attribute("user", user))
@@ -94,7 +96,7 @@ public class UserControllerTest {
         //When
         Mockito.when(userRepository.save(user)).thenReturn(user);
         //Then
-        mockMvc.perform(post("/user/update/1").contentType(MediaType.APPLICATION_FORM_URLENCODED) .param("username","username")
+        mockMvc.perform(post("/user/update/1").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))).contentType(MediaType.APPLICATION_FORM_URLENCODED) .param("username","username")
                 .param("password","user")
                 .param("fullname","full name")
                 .param("role","ADMIN")
@@ -111,7 +113,7 @@ public class UserControllerTest {
         Mockito.when(userRepository.findAll()).thenReturn(findAll);
         Mockito.doNothing().when(userRepository).delete(user);
         //Then
-        mockMvc.perform(get("/user/delete/1"))
+        mockMvc.perform(get("/user/delete/1").with(user("admin").roles("USER","ADMIN").authorities(new SimpleGrantedAuthority("ADMIN"))))
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl("/user/list"));
     }
