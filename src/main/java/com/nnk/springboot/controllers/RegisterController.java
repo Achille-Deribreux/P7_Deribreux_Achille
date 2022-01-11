@@ -22,9 +22,6 @@ import javax.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     UserService userService;
 
     @GetMapping
@@ -39,7 +36,7 @@ public class RegisterController {
                 if(userService.validatePassword(user.getPassword())){
                     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                     user.setPassword(encoder.encode(user.getPassword()));
-                    userRepository.save(user);
+                    userService.add(user);
                     return "redirect:/login?success";
                 }
                 else{

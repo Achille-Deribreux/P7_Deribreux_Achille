@@ -1,4 +1,4 @@
-package Config;
+package com.nnk.springboot.Config;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

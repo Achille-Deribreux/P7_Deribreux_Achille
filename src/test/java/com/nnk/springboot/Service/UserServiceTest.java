@@ -45,4 +45,54 @@ public class UserServiceTest {
     void findByUsernameExceptionTest() {
         assertThrows(ObjetNotFoundExceptionString.class,()->userService.findByUsername("Achille"));
     }
+
+    @Test
+    void validatePasswordFalseTest(){
+        //Given
+        String password = "novalid";
+        Boolean expected = false;
+        Boolean result ;
+        //When
+        result = userService.validatePassword(password);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void validatePasswordTrueTest(){
+        //Given
+        String password = "Valid-12345";
+        Boolean expected = true;
+        Boolean result ;
+        //When
+        result = userService.validatePassword(password);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void uniqueUsernameValidatorTrueTest() {
+        //Given
+        String username ="achille";
+        Boolean expected = true;
+        Boolean result;
+        //When
+        result = userService.uniqueUsernameValidator(username);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void uniqueUsernameValidatorFalseTest() {
+        //Given
+        String username ="achille";
+        User user = new User(1, "achille", "mdp", "Achille Deribreux","ADMIN");
+        Boolean expected = false;
+        Boolean result;
+        //When
+        Mockito.when(userRepository.findByUsername(username)).thenReturn(java.util.Optional.of(user));
+        result = userService.uniqueUsernameValidator(username);
+        //Then
+        assertEquals(expected, result);
+    }
 }

@@ -19,8 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private CustomOAuth2UserService customOAuth2UserService;
+    private CustomOAuth2UserService customOAuth2UserService  = new CustomOAuth2UserService();
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login*","/register","/js/**","css/*","css/**",
                         "static/css/*",
-                        "/img/*").permitAll()
+                        "/img/*","/error").permitAll()
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
