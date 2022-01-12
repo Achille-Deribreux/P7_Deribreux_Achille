@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -94,5 +95,16 @@ public class UserServiceTest {
         result = userService.uniqueUsernameValidator(username);
         //Then
         assertEquals(expected, result);
+    }
+
+    @Test
+    void addTest() {
+        //Given
+        User user = new User(1, "achille", "mdp", "Achille Deribreux","ADMIN");
+        //When
+        Mockito.when(userRepository.save(user)).thenReturn(user);
+        userService.add(user);
+        //Then
+        verify(userRepository,Mockito.times(1)).save(user);
     }
 }

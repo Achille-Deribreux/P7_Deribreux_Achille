@@ -31,7 +31,7 @@ public class UserController {
         return "user/add";
     }
 
-    //TODO : validate test
+
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
@@ -53,12 +53,10 @@ public class UserController {
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
-                             BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";
         }
-
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
