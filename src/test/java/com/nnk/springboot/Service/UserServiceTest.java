@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -44,5 +45,66 @@ public class UserServiceTest {
     @Test
     void findByUsernameExceptionTest() {
         assertThrows(ObjetNotFoundExceptionString.class,()->userService.findByUsername("Achille"));
+    }
+
+    @Test
+    void validatePasswordFalseTest(){
+        //Given
+        String password = "novalid";
+        Boolean expected = false;
+        Boolean result ;
+        //When
+        result = userService.validatePassword(password);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void validatePasswordTrueTest(){
+        //Given
+        String password = "Valid-12345";
+        Boolean expected = true;
+        Boolean result ;
+        //When
+        result = userService.validatePassword(password);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void uniqueUsernameValidatorTrueTest() {
+        //Given
+        String username ="achille";
+        Boolean expected = true;
+        Boolean result;
+        //When
+        result = userService.uniqueUsernameValidator(username);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void uniqueUsernameValidatorFalseTest() {
+        //Given
+        String username ="achille";
+        User user = new User(1, "achille", "mdp", "Achille Deribreux","ADMIN");
+        Boolean expected = false;
+        Boolean result;
+        //When
+        Mockito.when(userRepository.findByUsername(username)).thenReturn(java.util.Optional.of(user));
+        result = userService.uniqueUsernameValidator(username);
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void addTest() {
+        //Given
+        User user = new User(1, "achille", "mdp", "Achille Deribreux","ADMIN");
+        //When
+        Mockito.when(userRepository.save(user)).thenReturn(user);
+        userService.add(user);
+        //Then
+        verify(userRepository,Mockito.times(1)).save(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.nnk.springboot.Config;
 
 import com.nnk.springboot.Service.AuthenticationService;
+import com.nnk.springboot.Service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationService authenticationService;
 
+    private CustomOAuth2UserService customOAuth2UserService  = new CustomOAuth2UserService();
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,14 +35,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login*","/register","/js/**",
-                        "/css/**",
-                        "/img/**").permitAll()
+                .antMatchers("/login*","/register","/js/**","css/*","css/**",
+                        "static/css/*",
+                        "/img/*","/error").permitAll()
+                .antMatchers("/user/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/bidList/list", true)
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
@@ -47,6 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                    .userService(customOAuth2UserService);
     }
 }

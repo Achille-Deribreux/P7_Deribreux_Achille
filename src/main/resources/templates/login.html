@@ -4,20 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 </head>
 <body>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 col-md-offset-3">
+                <h4 class="text-center">Login with username and password</h4>
 
-            <div class="row">
-                <h1 class="col-10">Login</h1>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered
+                    to our awesome app!
+                </div>
+            </div>
+
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid username or
+                    password.
+                </div>
+            </div>
+
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">You have been logged out.</div>
             </div>
 
             <form th:action="@{/login}" method="post">
-
                 <div class="form-group">
                     <label for="username"> Username </label> :
                     <input type="text" class="form-control" id="username" name="username" required
@@ -34,11 +47,15 @@
                     <div class="row justify-content-center">
                         <div class="col-sm-6 col-sm-offset-3">
                             <input type="submit" name="login-submit" id="login-submit"
-                                   class="form-control btn btn-primary" value="Log In"/>
+                                   class="form-control btn btn-primary" value="Login"/>
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="form-group mt-4">
+                <label><i class="fab fa-github h3"></i><a th:href="@{/oauth2/authorization/github}"> <span class="h4 text-dark">Login with github</span></a></label>
+            </div>
+                <p>Not registred ? <a href="/register"> Create an account !</a></p>
         </div>
     </div>
 </div>
