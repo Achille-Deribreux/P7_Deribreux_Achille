@@ -24,7 +24,7 @@ Poseiden is an "Web-based enterprise software that aims to generate more transac
 
 ### UML Data
 
-<img src="https://github.com/Achille-Deribreux/P7_Deribreux_Achille/blob/develop/UML_BDD.jpg" alt="Data Diagram"/>
+<img src="https://github.com/Achille-Deribreux/P7_Deribreux_Achille/blob/develop/UML_DATA.jpg" alt="Data Diagram"/>
 
 ### Jacoco Report
 
